@@ -44,15 +44,16 @@ func printRecord(f *record.File) {
 	fmt.Fprint(w, "START_TIME\t", toUnix(f.Header.GetBeginTime()), "\n")
 	fmt.Fprint(w, "END_TIME\t", toUnix(f.Header.GetEndTime()), "\n")
 	fmt.Fprint(w, "IS_COMPLETE\t", f.Header.GetIsComplete(), "\n")
+	fmt.Fprint(w, "INDEX_POSITION\t", f.Header.GetIndexPosition(), "\n")
 	fmt.Fprint(w, "MESSAGE_NUMBER\t", f.Header.GetMessageNumber(), "\n")
 	fmt.Fprint(w, "CHANNEL_NUMBER\t", f.Header.GetChannelNumber(), "\n")
 
 	fmt.Fprintln(w, "\nIndexes info:")
-	fmt.Fprintf(w, "NAME\tMESSAGES\n")
+	fmt.Fprintf(w, "NAME\tMESSAGES\tPOSITION\n")
 	for _, idx := range f.Index.GetIndexes() {
 		if idx.GetType() == *proto.SectionType_SECTION_CHANNEL.Enum() {
 			cache := idx.GetChannelCache()
-			fmt.Fprintf(w, "%s\t%d\n", cache.GetName(), cache.GetMessageNumber())
+			fmt.Fprintf(w, "%s\t%d\t%d\n", cache.GetName(), cache.GetMessageNumber(), idx.GetPosition())
 		}
 	}
 	_ = w.Flush()
