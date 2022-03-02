@@ -6,6 +6,9 @@ import (
 	"go.buf.build/protocolbuffers/go/juchaosong/apollo/cyber/proto"
 )
 
+// ┌───────────────────┬───────────────┬─────┬──────────────────┬─────┬───┐
+// │section_header(16b)│ header(2048b) │ ... │section_index(16b)│index│...│
+// └───────────────────┴───────────────┴─────┴──────────────────┴─────┴───┘
 type File struct {
 	Header proto.Header
 	Index  proto.Index
