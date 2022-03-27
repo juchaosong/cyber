@@ -7,7 +7,7 @@ import (
 )
 
 // ┌───────────────────┬───────────────┬─────┬──────────────────┬─────┬───┐
-// │section_header(16b)│ header(2048b) │ ... │section_index(16b)│index│...│
+// │section_header(16B)│ header(2048B) │ ... │section_index(16B)│index│...│
 // └───────────────────┴───────────────┴─────┴──────────────────┴─────┴───┘
 type File struct {
 	Header proto.Header
