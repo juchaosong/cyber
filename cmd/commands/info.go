@@ -49,11 +49,30 @@ func printRecord(f *record.File) {
 	fmt.Fprint(w, "CHANNEL_NUMBER\t", f.Header.GetChannelNumber(), "\n")
 
 	fmt.Fprintln(w, "\nIndexes info:")
-	fmt.Fprintf(w, "NAME\tMESSAGES\tPOSITION\n")
+	fmt.Fprintln(w, "Channel info:")
+	fmt.Fprintf(w, "NAME\tTYPE\tPOSITION\tMESSAGES\n")
 	for _, idx := range f.Index.GetIndexes() {
 		if idx.GetType() == *proto.SectionType_SECTION_CHANNEL.Enum() {
 			cache := idx.GetChannelCache()
-			fmt.Fprintf(w, "%s\t%d\t%d\n", cache.GetName(), cache.GetMessageNumber(), idx.GetPosition())
+			fmt.Fprintf(w, "%s\t%s\t%d\t%d\n", cache.GetName(), cache.GetMessageType(), idx.GetPosition(), cache.GetMessageNumber())
+		}
+	}
+
+	fmt.Fprintln(w, "\nChunk header info:")
+	fmt.Fprintf(w, "MESSAGES\tBEGIN_TIME\tEND_TIME\tRAW_SIZE\n")
+	for _, idx := range f.Index.GetIndexes() {
+		if idx.GetType() == *proto.SectionType_SECTION_CHUNK_HEADER.Enum() {
+			cache := idx.GetChunkHeaderCache()
+			fmt.Fprintf(w, "%d\t%d\t%d\t%d\n", cache.GetMessageNumber(), cache.GetBeginTime(), cache.GetEndTime(), cache.GetRawSize())
+		}
+	}
+
+	fmt.Fprintln(w, "\nChunk body info:")
+	fmt.Fprintf(w, "MESSAGES\n")
+	for _, idx := range f.Index.GetIndexes() {
+		if idx.GetType() == *proto.SectionType_SECTION_CHUNK_BODY.Enum() {
+			cache := idx.GetChunkBodyCache()
+			fmt.Fprintf(w, "%d\n", cache.GetMessageNumber())
 		}
 	}
 	_ = w.Flush()
