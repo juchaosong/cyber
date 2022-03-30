@@ -16,6 +16,7 @@ func NewCommand() *cobra.Command {
 	}
 
 	command.AddCommand(NewInfoCommand())
+	command.AddCommand(NewInspectCommand())
 
 	return command
 }

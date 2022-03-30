@@ -15,7 +15,7 @@ import (
 func NewInfoCommand() *cobra.Command {
 	command := &cobra.Command{
 		Use:   "info",
-		Short: "Show information about cyber",
+		Short: "Show cyber record information",
 		Run: func(cmd *cobra.Command, args []string) {
 			for _, fileName := range args {
 				f, err := record.NewFile(fileName)
@@ -45,8 +45,11 @@ func printRecord(f *record.File) {
 	fmt.Fprint(w, "END_TIME\t", toUnix(f.Header.GetEndTime()), "\n")
 	fmt.Fprint(w, "IS_COMPLETE\t", f.Header.GetIsComplete(), "\n")
 	fmt.Fprint(w, "INDEX_POSITION\t", f.Header.GetIndexPosition(), "\n")
-	fmt.Fprint(w, "MESSAGE_NUMBER\t", f.Header.GetMessageNumber(), "\n")
+	fmt.Fprint(w, "CHUNK_NUMBER\t", f.Header.GetChunkNumber(), "\n")
 	fmt.Fprint(w, "CHANNEL_NUMBER\t", f.Header.GetChannelNumber(), "\n")
+	fmt.Fprint(w, "MESSAGE_NUMBER\t", f.Header.GetMessageNumber(), "\n")
+	fmt.Fprint(w, "CHUNK_RAW_SIZE(B)\t", f.Header.GetChunkRawSize(), "\n")
+	fmt.Fprint(w, "SEGMENT_RAW_SIZE(B)\t", f.Header.GetSegmentRawSize(), "\n")
 
 	fmt.Fprintln(w, "\nIndexes info:")
 	fmt.Fprintln(w, "Channel info:")

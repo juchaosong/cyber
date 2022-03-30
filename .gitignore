@@ -1,2 +1,4 @@
 # Record file
 *.record
+
+.vscode
