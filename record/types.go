@@ -8,9 +8,9 @@ import (
 	"go.buf.build/protocolbuffers/go/juchaosong/apollo/cyber/proto"
 )
 
-// ┌───────────────────┬───────────────┬─────┬──────────────────┬─────┬───┐
-// │section_header(16B)│ header(2048B) │ ... │section_index(16B)│index│...│
-// └───────────────────┴───────────────┴─────┴──────────────────┴─────┴───┘
+// ┌───────────────────┬───────────────┬─────┬──────────────────┬─────┐
+// │section_header(16B)│ header(2048B) │ ... │section_index(16B)│index│
+// └───────────────────┴───────────────┴─────┴──────────────────┴─────┘
 type File struct {
 	Header     proto.Header
 	Index      proto.Index
