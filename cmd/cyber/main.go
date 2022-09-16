@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/juchaosong/cyber/cmd/commands"
+	"github.com/juchaosong/cyber/cmd/cyber/commands"
 )
 
 func main() {
